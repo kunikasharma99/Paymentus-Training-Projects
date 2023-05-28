@@ -1,3 +1,4 @@
+const http = require('http');
 const fs = require('fs');
 const fileName = 'movies.json';
 
@@ -59,22 +60,24 @@ function deleteMovie(id) {
     return false;
   }
   
-//Test the CRUD Operations
-// Create a new movie
-createMovie({ id: 6, genre: 'drama' });
+// //Test the CRUD Operations
+// // Create a new movie
+// createMovie({ id: 6, genre: 'drama' });
 
-// Read all movies
-const allMovies = getAllMovies();
-console.log(allMovies);
+// // Read all movies
+// const allMovies = getAllMovies();
+// console.log(allMovies);
 
-// Read a specific movie by ID
-const movieById = getMovieById(2);
-console.log(movieById);
+// // Read a specific movie by ID
+// const movieById = getMovieById(2);
+// console.log(movieById);
 
-// Update a movie by ID
-const isUpdated = updateMovie(3, { genre: 'action-comedy' });
-console.log(isUpdated);
+// // Update a movie by ID
+// const isUpdated = updateMovie(3, { genre: 'action-comedy' });
+// console.log(isUpdated);
 
-// Delete a movie by ID
-const isDeleted = deleteMovie(4);
-console.log(isDeleted);
+// // Delete a movie by ID
+// const isDeleted = deleteMovie(4);
+// console.log(isDeleted);
+
+
