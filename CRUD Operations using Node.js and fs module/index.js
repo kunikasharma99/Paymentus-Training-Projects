@@ -81,3 +81,68 @@ function deleteMovie(id) {
 // console.log(isDeleted);
 
 
+const server = http.createServer((req, res) => {
+  if (req.url === '/' && req.method === 'GET') {
+    const movies = getAllMovies();
+    //res.setHeader('Content-Type', 'application/json');
+    res.statusCode = 200;
+    res.end(JSON.stringify(movies));
+  } else if (req.url === '/' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+    req.on('end', () => {
+      const movie = JSON.parse(body);
+      createMovie(movie);
+      res.statusCode = 201;
+      res.end('Movie created successfully');
+    });
+  } else if (req.url.startsWith('/movies/') && req.method === 'GET') {
+    const id = parseInt(req.url.split('/')[2]);
+    const movie = getMovieById(id);
+    if (movie) {
+      // res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.end(JSON.stringify(movie));
+    } else {
+      res.statusCode = 404;
+      res.end('Movie not found');
+    }
+  } else if (req.url.startsWith('/') && req.method === 'PUT') {
+    const id = parseInt(req.url.split('/')[2]);
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+    req.on('end', () => {
+      const updatedMovie = JSON.parse(body);
+      const isUpdated = updateMovie(id, updatedMovie);
+      if (isUpdated) {
+        res.statusCode = 200;
+        res.end('Movie updated successfully');
+      } else {
+        res.statusCode = 404;
+        res.end('Movie not found');
+      }
+    });
+  } else if (req.url.startsWith('/') && req.method === 'DELETE') {
+    const id = parseInt(req.url.split('/')[2]);
+    const isDeleted = deleteMovie(id);
+    if (isDeleted) {
+      res.statusCode = 200;
+      res.end('Movie deleted successfully');
+    } else {
+      res.statusCode = 404;
+      res.end('Movie not found');
+    }
+  } else {
+    res.statusCode = 404;
+    res.end('Not found');
+  }
+});
+
+const port = 3000;
+server.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
