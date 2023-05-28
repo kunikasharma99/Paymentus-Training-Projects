@@ -1,0 +1,8 @@
+[
+    { "id": 1, "genre": "action" },
+    { "id": 2, "genre": "horror" },
+    { "id": 3, "genre": "comedy" },
+    { "id": 4, "genre": "romantic" },
+    { "id": 5, "genre": "thriller" }
+  ]
+  
